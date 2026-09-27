@@ -36,7 +36,7 @@ Set-StrictMode -Version Latest
 # The modules warn on every armed context and every containment step. That is
 # correct behaviour in operation and noise in a walkthrough; the narration
 # below surfaces the same facts deliberately.
-$WarningPreference = 'SilentlyContinue'
+$global:WarningPreference = 'SilentlyContinue'
 
 $repoRoot = Split-Path -Parent $PSScriptRoot
 $demoRoot = $PSScriptRoot

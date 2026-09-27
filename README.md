@@ -23,6 +23,8 @@ both report writers.
 
 Add `-Pause` to step through it during a screen-share.
 
+**Windows:** scripts extracted from a downloaded archive carry the mark-of-the-web and will not run. Clear it once with `Get-ChildItem -Recurse | Unblock-File`, or allow a single session with `Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass`.
+
 ## What is here
 
 | Component | What it does |
@@ -179,6 +181,10 @@ ignored on PowerShell 7's error path.
   production customers.
 - **Defender and Purview are not covered.** Neither is referenced anywhere in
   this toolkit.
+
+## See also
+
+**[M365GovGuard](https://github.com/LOCKSPORT1/M365GovGuard)** — posture assessment and remediation for Microsoft 365 Commercial, GCC, GCC High and DoD tenants. Same conventions: read-only by default, capability-gated, self-documenting runs.
 
 ## License
 
