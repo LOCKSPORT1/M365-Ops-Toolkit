@@ -1,0 +1,20 @@
+# Run artifacts produced by Start-MtRun / the demo
+Artifacts/
+MtDemo-*/
+*.jsonl
+
+# Real tenant configuration. Only tenants.sample.json is committed.
+tenants.json
+**/tenants.json
+
+# Python bytecode from the test doubles
+__pycache__/
+*.pyc
+
+# Editors and OS
+.vscode/
+.idea/
+*.suo
+*.user
+.DS_Store
+Thumbs.db

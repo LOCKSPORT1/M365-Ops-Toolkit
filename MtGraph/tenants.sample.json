@@ -1,0 +1,36 @@
+{
+  "_comment": "Copy to tenants.json and keep that file out of source control. No secrets belong here: certificate auth reads a thumbprint from the local store, client secret auth reads a named environment variable.",
+
+  "clientId": "00000000-0000-0000-0000-000000000000",
+  "authMode": "Certificate",
+  "certificateThumbprint": "REPLACE-WITH-THUMBPRINT",
+  "certStoreLocation": "CurrentUser",
+  "cloud": "Global",
+  "artifactRoot": "C:\\MtGraph\\Artifacts",
+
+  "tenants": [
+    {
+      "name": "Contoso Manufacturing",
+      "tenantId": "contoso.onmicrosoft.com",
+      "tags": ["e5", "managed", "manufacturing"]
+    },
+    {
+      "name": "Fabrikam Legal",
+      "tenantId": "fabrikam.onmicrosoft.com",
+      "tags": ["e3", "managed", "compliance-sensitive"]
+    },
+    {
+      "name": "Tailspin Federal",
+      "tenantId": "tailspin.onmicrosoft.us",
+      "cloud": "USGov",
+      "tags": ["gcc", "managed"]
+    },
+    {
+      "name": "Northwind Traders",
+      "tenantId": "northwind.onmicrosoft.com",
+      "authMode": "ClientSecret",
+      "clientSecretEnvVar": "MTGRAPH_NORTHWIND_SECRET",
+      "tags": ["e3", "onboarding"]
+    }
+  ]
+}

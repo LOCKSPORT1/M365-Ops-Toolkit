@@ -1,0 +1,469 @@
+{
+  "name": "ARM - imperfect production subscription",
+  "description": "Recorded Azure Resource Manager responses. Policy Insights returns 403 on purpose.",
+  "routes": [
+    {
+      "method": "POST",
+      "pattern": "/providers/Microsoft\\.PolicyInsights/",
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "AuthorizationFailed",
+          "message": "The client does not have authorization to perform action 'Microsoft.PolicyInsights/policyStates/read' over scope."
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.PolicyInsights/",
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "AuthorizationFailed",
+          "message": "The client does not have authorization to perform action 'Microsoft.PolicyInsights/policyStates/read' over scope."
+        }
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/subscriptions\\?",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "subscriptionId": "11111111-2222-3333-4444-555555555555",
+            "displayName": "Contoso Production",
+            "state": "Enabled",
+            "tenantId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/subscriptions$",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "subscriptionId": "11111111-2222-3333-4444-555555555555",
+            "displayName": "Contoso Production",
+            "state": "Enabled",
+            "tenantId": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Authorization/roleAssignments",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "ra-1",
+            "properties": {
+              "roleDefinitionId": "/subscriptions/11111111-2222-3333-4444-555555555555/providers/Microsoft.Authorization/roleDefinitions/owner-guid",
+              "principalId": "user-1",
+              "principalType": "User",
+              "scope": "/subscriptions/11111111-2222-3333-4444-555555555555",
+              "createdOn": "2024-03-11T00:00:00Z"
+            }
+          },
+          {
+            "id": "ra-2",
+            "properties": {
+              "roleDefinitionId": "/subscriptions/11111111-2222-3333-4444-555555555555/providers/Microsoft.Authorization/roleDefinitions/owner-guid",
+              "principalId": "user-2",
+              "principalType": "User",
+              "scope": "/subscriptions/11111111-2222-3333-4444-555555555555",
+              "createdOn": "2023-08-02T00:00:00Z"
+            }
+          },
+          {
+            "id": "ra-3",
+            "properties": {
+              "roleDefinitionId": "/subscriptions/11111111-2222-3333-4444-555555555555/providers/Microsoft.Authorization/roleDefinitions/contrib-guid",
+              "principalId": "grp-eng",
+              "principalType": "Group",
+              "scope": "/subscriptions/11111111-2222-3333-4444-555555555555",
+              "createdOn": "2024-01-15T00:00:00Z"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Authorization/roleDefinitions",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/providers/Microsoft.Authorization/roleDefinitions/owner-guid",
+            "properties": {
+              "roleName": "Owner"
+            }
+          },
+          {
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/providers/Microsoft.Authorization/roleDefinitions/contrib-guid",
+            "properties": {
+              "roleName": "Contributor"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Authorization/classicAdministrators",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "ca-1",
+            "properties": {
+              "emailAddress": "legacy@contoso.com",
+              "role": "ServiceAdministrator"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Authorization/policyAssignments",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "require-tags",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/providers/Microsoft.Authorization/policyAssignments/require-tags",
+            "properties": {
+              "displayName": "Require cost centre tag"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Network/networkSecurityGroups",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "nsg-web",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Network/networkSecurityGroups/nsg-web",
+            "properties": {
+              "subnets": [
+                {
+                  "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Network/virtualNetworks/vnet-prod/subnets/web"
+                }
+              ],
+              "networkInterfaces": [],
+              "securityRules": [
+                {
+                  "name": "allow-rdp-any",
+                  "properties": {
+                    "direction": "Inbound",
+                    "access": "Allow",
+                    "protocol": "Tcp",
+                    "priority": 100,
+                    "sourceAddressPrefix": "Internet",
+                    "destinationPortRange": "3389"
+                  }
+                },
+                {
+                  "name": "allow-https",
+                  "properties": {
+                    "direction": "Inbound",
+                    "access": "Allow",
+                    "protocol": "Tcp",
+                    "priority": 110,
+                    "sourceAddressPrefix": "Internet",
+                    "destinationPortRange": "443"
+                  }
+                },
+                {
+                  "name": "deny-all",
+                  "properties": {
+                    "direction": "Inbound",
+                    "access": "Deny",
+                    "protocol": "*",
+                    "priority": 4096,
+                    "sourceAddressPrefix": "*",
+                    "destinationPortRange": "*"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "name": "nsg-orphan",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Network/networkSecurityGroups/nsg-orphan",
+            "properties": {
+              "subnets": [],
+              "networkInterfaces": [],
+              "securityRules": [
+                {
+                  "name": "allow-range",
+                  "properties": {
+                    "direction": "Inbound",
+                    "access": "Allow",
+                    "protocol": "Tcp",
+                    "priority": 200,
+                    "sourceAddressPrefix": "0.0.0.0/0",
+                    "destinationPortRange": "1000-4000"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Network/publicIPAddresses",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "pip-gw",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Network/publicIPAddresses/pip-gw",
+            "sku": {
+              "name": "Standard"
+            },
+            "properties": {
+              "ipConfiguration": {
+                "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Network/virtualNetworkGateways/vgw-prod"
+              }
+            }
+          },
+          {
+            "name": "pip-orphan",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Network/publicIPAddresses/pip-orphan",
+            "sku": {
+              "name": "Standard"
+            },
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Network/networkInterfaces",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "nic-app01",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Network/networkInterfaces/nic-app01",
+            "properties": {
+              "virtualMachine": {
+                "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Compute/virtualMachines/vm-app01"
+              }
+            }
+          },
+          {
+            "name": "nic-stale",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Network/networkInterfaces/nic-stale",
+            "properties": {}
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Storage/storageAccounts",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "stlegacydata",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Storage/storageAccounts/stlegacydata",
+            "location": "eastus",
+            "properties": {
+              "allowBlobPublicAccess": true,
+              "supportsHttpsTrafficOnly": false,
+              "minimumTlsVersion": "TLS1_0",
+              "allowSharedKeyAccess": true,
+              "networkAcls": {
+                "defaultAction": "Allow"
+              }
+            }
+          },
+          {
+            "name": "stappsecure",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Storage/storageAccounts/stappsecure",
+            "location": "eastus",
+            "properties": {
+              "allowBlobPublicAccess": false,
+              "supportsHttpsTrafficOnly": true,
+              "minimumTlsVersion": "TLS1_2",
+              "allowSharedKeyAccess": false,
+              "networkAcls": {
+                "defaultAction": "Deny"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Compute/virtualMachines",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "vm-app01",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Compute/virtualMachines/vm-app01",
+            "location": "eastus"
+          },
+          {
+            "name": "vm-sql01",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Compute/virtualMachines/vm-sql01",
+            "location": "eastus"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Compute/disks",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "vm-app01_OsDisk",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Compute/disks/vm-app01_OsDisk",
+            "properties": {
+              "diskState": "Attached",
+              "diskSizeGB": 128
+            }
+          },
+          {
+            "name": "orphan-datadisk",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Compute/disks/orphan-datadisk",
+            "properties": {
+              "diskState": "Unattached",
+              "diskSizeGB": 512
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.RecoveryServices/vaults\\?",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "rsv-prod",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.RecoveryServices/vaults/rsv-prod"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/backupProtectedItems",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "pi-1",
+            "properties": {
+              "sourceResourceId": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Compute/virtualMachines/vm-app01",
+              "protectionState": "Protected"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.OperationalInsights/workspaces",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "law-prod",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.OperationalInsights/workspaces/law-prod",
+            "properties": {
+              "retentionInDays": 30,
+              "sku": {
+                "name": "PerGB2018"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Insights/metricAlerts",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "cpu-high",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Insights/metricAlerts/cpu-high",
+            "properties": {
+              "enabled": true,
+              "actions": [
+                {
+                  "actionGroupId": "ag-oncall"
+                }
+              ]
+            }
+          },
+          {
+            "name": "disk-low",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Insights/metricAlerts/disk-low",
+            "properties": {
+              "enabled": true,
+              "actions": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "/providers/Microsoft\\.Insights/actionGroups",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "name": "ag-oncall",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Insights/actionGroups/ag-oncall",
+            "properties": {
+              "enabled": true,
+              "emailReceivers": [
+                {
+                  "name": "oncall",
+                  "emailAddress": "oncall@contoso.com"
+                }
+              ]
+            }
+          },
+          {
+            "name": "ag-empty",
+            "id": "/subscriptions/11111111-2222-3333-4444-555555555555/resourceGroups/rg-prod/providers/Microsoft.Insights/actionGroups/ag-empty",
+            "properties": {
+              "enabled": true,
+              "emailReceivers": [],
+              "smsReceivers": [],
+              "webhookReceivers": []
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

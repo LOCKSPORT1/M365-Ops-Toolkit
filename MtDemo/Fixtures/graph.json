@@ -1,0 +1,539 @@
+{
+  "name": "Graph - business email compromise",
+  "description": "Recorded Microsoft Graph responses staging a compromised finance account.",
+  "routes": [
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/organization",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+            "displayName": "Contoso Manufacturing",
+            "verifiedDomains": [
+              {
+                "name": "contoso.mail.onmicrosoft.com",
+                "isDefault": false
+              },
+              {
+                "name": "contoso.com",
+                "isDefault": true
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/subscribedSkus",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "skuPartNumber": "SPE_E5",
+            "servicePlans": [
+              {
+                "servicePlanName": "AAD_PREMIUM",
+                "provisioningStatus": "Success"
+              },
+              {
+                "servicePlanName": "AAD_PREMIUM_P2",
+                "provisioningStatus": "Success"
+              },
+              {
+                "servicePlanName": "INTUNE_A",
+                "provisioningStatus": "Success"
+              },
+              {
+                "servicePlanName": "THREAT_INTELLIGENCE",
+                "provisioningStatus": "Success"
+              },
+              {
+                "servicePlanName": "M365_ADVANCED_AUDITING",
+                "provisioningStatus": "Success"
+              },
+              {
+                "servicePlanName": "EXCHANGE_S_ENTERPRISE",
+                "provisioningStatus": "Success"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/domains",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "contoso.com",
+            "isVerified": true
+          },
+          {
+            "id": "contoso.mail.onmicrosoft.com",
+            "isVerified": true
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/auditLogs/signIns",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "signin-1",
+            "createdDateTime": "2026-09-26T02:29:03Z",
+            "userId": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+            "userPrincipalName": "jdoe@contoso.com",
+            "appDisplayName": "Office 365 Exchange Online",
+            "clientAppUsed": "Browser",
+            "ipAddress": "72.14.201.5",
+            "location": {
+              "city": "Atlanta",
+              "countryOrRegion": "US"
+            },
+            "status": {
+              "errorCode": 0
+            },
+            "conditionalAccessStatus": "success"
+          },
+          {
+            "id": "signin-2",
+            "createdDateTime": "2026-09-24T20:29:03Z",
+            "userId": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+            "userPrincipalName": "jdoe@contoso.com",
+            "appDisplayName": "Office 365 Exchange Online",
+            "clientAppUsed": "IMAP4",
+            "ipAddress": "102.89.33.17",
+            "location": {
+              "city": "Lagos",
+              "countryOrRegion": "NG"
+            },
+            "status": {
+              "errorCode": 0
+            },
+            "conditionalAccessStatus": "notApplied"
+          },
+          {
+            "id": "signin-3",
+            "createdDateTime": "2026-09-24T19:29:03Z",
+            "userId": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+            "userPrincipalName": "jdoe@contoso.com",
+            "appDisplayName": "Microsoft Office",
+            "clientAppUsed": "Browser",
+            "ipAddress": "102.89.33.17",
+            "location": {
+              "city": "Lagos",
+              "countryOrRegion": "NG"
+            },
+            "status": {
+              "errorCode": 50126
+            },
+            "conditionalAccessStatus": "notApplied"
+          },
+          {
+            "id": "signin-4",
+            "createdDateTime": "2026-09-23T02:29:03Z",
+            "userId": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+            "userPrincipalName": "jdoe@contoso.com",
+            "appDisplayName": "Microsoft Teams",
+            "clientAppUsed": "Mobile Apps and Desktop clients",
+            "ipAddress": "72.14.201.5",
+            "location": {
+              "city": "Atlanta",
+              "countryOrRegion": "US"
+            },
+            "status": {
+              "errorCode": 0
+            },
+            "conditionalAccessStatus": "success"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/auditLogs/directoryAudits.*initiatedBy",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "audit-3",
+            "activityDisplayName": "Consent to application",
+            "activityDateTime": "2026-09-25T02:29:03Z",
+            "category": "ApplicationManagement",
+            "result": "success",
+            "initiatedBy": {
+              "user": {
+                "id": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+                "userPrincipalName": "jdoe@contoso.com"
+              }
+            },
+            "targetResources": [
+              {
+                "id": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+                "displayName": "Mail Backup Pro"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/auditLogs/directoryAudits",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "audit-1",
+            "activityDisplayName": "User registered security info",
+            "activityDateTime": "2026-09-25T02:29:03Z",
+            "category": "UserManagement",
+            "result": "success",
+            "initiatedBy": {
+              "user": {
+                "id": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+                "userPrincipalName": "jdoe@contoso.com"
+              }
+            },
+            "targetResources": [
+              {
+                "id": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+                "userPrincipalName": "jdoe@contoso.com",
+                "type": "User"
+              }
+            ]
+          },
+          {
+            "id": "audit-2",
+            "activityDisplayName": "Update user",
+            "activityDateTime": "2026-09-22T02:29:03Z",
+            "category": "UserManagement",
+            "result": "success",
+            "initiatedBy": {
+              "user": {
+                "id": "admin-1",
+                "userPrincipalName": "admin@contoso.com"
+              }
+            },
+            "targetResources": [
+              {
+                "id": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+                "userPrincipalName": "jdoe@contoso.com",
+                "type": "User"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/identityProtection/riskyUsers/",
+      "status": 200,
+      "body": {
+        "id": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+        "userPrincipalName": "jdoe@contoso.com",
+        "riskLevel": "high",
+        "riskState": "atRisk",
+        "riskDetail": "none",
+        "riskLastUpdatedDateTime": "2026-09-25T02:29:03Z"
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/identityProtection/riskDetections",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "det-1",
+            "riskType": "unfamiliarFeatures",
+            "riskLevel": "high",
+            "detectedDateTime": "2026-09-25T02:29:03Z",
+            "ipAddress": "102.89.33.17",
+            "location": {
+              "countryOrRegion": "NG"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/authentication/methods",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "@odata.type": "#microsoft.graph.passwordAuthenticationMethod",
+            "id": "28c10230-6103-485e-b985-444c60001490"
+          },
+          {
+            "@odata.type": "#microsoft.graph.phoneAuthenticationMethod",
+            "id": "3179e48a-750b-4051-897c-87b9720928f7",
+            "phoneNumber": "+1 706 555 0142",
+            "phoneType": "mobile"
+          },
+          {
+            "@odata.type": "#microsoft.graph.microsoftAuthenticatorAuthenticationMethod",
+            "id": "b8b1f0f4-9a2e-4a0d-8f2b-5ac4e2b77e10",
+            "displayName": "Pixel 7",
+            "deviceTag": "SoftwareTokenActivated",
+            "createdDateTime": "2026-09-25T02:29:03Z"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/mailFolders/inbox/messageRules",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "rule-hostile-01",
+            "displayName": ".",
+            "sequence": 1,
+            "isEnabled": true,
+            "conditions": {
+              "bodyOrSubjectContains": [
+                "invoice",
+                "wire",
+                "payment",
+                "remittance"
+              ]
+            },
+            "actions": {
+              "forwardTo": [
+                {
+                  "emailAddress": {
+                    "name": "",
+                    "address": "collector7731@mailinator.com"
+                  }
+                }
+              ],
+              "moveToFolder": "AAMkAGZmZjRSSFEED",
+              "markAsRead": true,
+              "stopProcessingRules": true
+            }
+          },
+          {
+            "id": "rule-benign-02",
+            "displayName": "Newsletters",
+            "sequence": 2,
+            "isEnabled": true,
+            "conditions": {
+              "fromAddresses": [
+                {
+                  "emailAddress": {
+                    "address": "news@vendor.com"
+                  }
+                }
+              ]
+            },
+            "actions": {
+              "moveToFolder": "AAMkAGZmZjRNEWSLETTER",
+              "stopProcessingRules": false
+            }
+          },
+          {
+            "id": "rule-internal-03",
+            "displayName": "Team escalations",
+            "sequence": 3,
+            "isEnabled": true,
+            "conditions": {
+              "subjectContains": [
+                "escalation"
+              ]
+            },
+            "actions": {
+              "forwardTo": [
+                {
+                  "emailAddress": {
+                    "address": "helpdesk@contoso.com"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/oauth2PermissionGrants",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "grant-hostile-01",
+            "clientId": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+            "consentType": "Principal",
+            "principalId": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+            "resourceId": "00000003-0000-0000-c000-000000000000",
+            "scope": "Mail.ReadWrite Mail.Send MailboxSettings.ReadWrite offline_access User.Read"
+          },
+          {
+            "id": "grant-benign-02",
+            "clientId": "bb22cc33-dd44-ee55-ff66-778899001122",
+            "consentType": "Principal",
+            "principalId": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+            "resourceId": "00000003-0000-0000-c000-000000000000",
+            "scope": "User.Read openid profile"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/transitiveMemberOf",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "@odata.type": "#microsoft.graph.directoryRole",
+            "id": "role-helpdesk",
+            "displayName": "Helpdesk Administrator"
+          },
+          {
+            "@odata.type": "#microsoft.graph.group",
+            "id": "grp-finance",
+            "displayName": "Finance-All"
+          },
+          {
+            "@odata.type": "#microsoft.graph.group",
+            "id": "grp-ap",
+            "displayName": "Accounts-Payable"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/ownedObjects",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "@odata.type": "#microsoft.graph.application",
+            "id": "app-owned-01",
+            "displayName": "AP Invoice Connector"
+          },
+          {
+            "@odata.type": "#microsoft.graph.group",
+            "id": "grp-ap",
+            "displayName": "Accounts-Payable"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/registeredDevices",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "dev-1",
+            "displayName": "CONTOSO-WS-014",
+            "operatingSystem": "Windows",
+            "isCompliant": true,
+            "isManaged": true
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/managedDevices",
+      "status": 200,
+      "body": {
+        "value": [
+          {
+            "id": "mdev-1",
+            "deviceName": "CONTOSO-WS-014",
+            "complianceState": "compliant",
+            "operatingSystem": "Windows",
+            "lastSyncDateTime": "2026-09-26T02:29:03Z"
+          }
+        ]
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/mailFolders/AAMkAGZmZjRSSFEED",
+      "status": 200,
+      "body": {
+        "id": "AAMkAGZmZjRSSFEED",
+        "displayName": "RSS Feeds"
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+/mailFolders/AAMkAGZmZjRNEWSLETTER",
+      "status": 200,
+      "body": {
+        "id": "AAMkAGZmZjRNEWSLETTER",
+        "displayName": "Newsletters"
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/servicePrincipals/aa11bb22-cc33-dd44-ee55-ff6677889900",
+      "status": 200,
+      "body": {
+        "displayName": "Mail Backup Pro",
+        "publisherName": "",
+        "verifiedPublisher": {},
+        "appId": "aa11bb22-cc33-dd44-ee55-ff6677889900",
+        "signInAudience": "AzureADMultipleOrgs"
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/servicePrincipals/bb22cc33-dd44-ee55-ff66-778899001122",
+      "status": 200,
+      "body": {
+        "displayName": "Contoso Expense Portal",
+        "publisherName": "Contoso",
+        "verifiedPublisher": {
+          "displayName": "Contoso Ltd"
+        },
+        "appId": "bb22cc33-dd44-ee55-ff66-778899001122",
+        "signInAudience": "AzureADMyOrg"
+      }
+    },
+    {
+      "method": "GET",
+      "pattern": "^/v1\\.0/users/[^/]+$",
+      "status": 200,
+      "body": {
+        "id": "7f3c1a90-5d21-4b8e-9a44-11c2e6d70b31",
+        "userPrincipalName": "jdoe@contoso.com",
+        "displayName": "Jordan Doe",
+        "mail": "jdoe@contoso.com",
+        "accountEnabled": true,
+        "createdDateTime": "2024-04-10T02:29:03Z",
+        "lastPasswordChangeDateTime": "2026-03-01T02:29:03Z",
+        "userType": "Member",
+        "jobTitle": "Accounts Payable Specialist",
+        "department": "Finance",
+        "officeLocation": "HQ",
+        "onPremisesSyncEnabled": true,
+        "onPremisesSamAccountName": "jdoe",
+        "proxyAddresses": [
+          "SMTP:jdoe@contoso.com"
+        ],
+        "signInSessionsValidFromDateTime": "2026-03-01T02:29:03Z"
+      }
+    }
+  ]
+}
